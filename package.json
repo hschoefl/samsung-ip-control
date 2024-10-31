@@ -1,0 +1,17 @@
+{
+  "name": "samsung-ip-control",
+  "version": "1.0.0",
+  "description": "Rest backend for Samsung IP control",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "express": "^5.0.1"
+  }
+}

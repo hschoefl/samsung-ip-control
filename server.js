@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 const { getTvIp } = require("./middlewares/getTvIp");
@@ -8,6 +9,7 @@ const keyRouter = require("./routes/keyRoutes");
 const powerRouter = require("./routes/powerRoutes");
 
 app.use(express.json());
+app.use(cors());
 
 // extract the IP from the header
 app.use(getTvIp);

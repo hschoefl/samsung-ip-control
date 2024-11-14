@@ -1,20 +1,32 @@
-const express = require("express");
+const express = require('express');
+const axios = require('axios');
+
 const router = express.Router();
+const TV_PORT = 1516;
 
 // to get the power state
 // --> {"jsonrpc" : "2.0", "method" : "powerControl", "id" : 1}
 // <-- {"jsonrpc" : "2.0", "result" : {"power" : "powerOn"}, "id" : 1}
 
-router.post("/", (req, res) => {
+router.get('/', async (req, res) => {
+  const tvIP = req.tvIP;
+
+  const urlSend = `https://${tvIP}:${TV_PORT}`;
+  console.log(urlSend);
+
   const powerState = {
-    jsonrpc: "2.0",
-    method: "powerControl",
-    id: "1",
+    jsonrpc: '2.0',
+    method: 'powerControl',
+    params: {
+      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
+    },
+    id: '1',
   };
 
   // power State wird an den TV geschickt
+  const response = await axios.post(urlSend, powerState);
 
-  res.status(200).json({ message: "power state result" });
+  res.status(200).json(response.data);
 });
 
 // to control power
@@ -22,48 +34,72 @@ router.post("/", (req, res) => {
 // <-- {"jsonrpc" : "2.0", "result" : {"power" : "powerOff"}, "id" : 1}
 
 // power on
-router.post("/on", (req, res) => {
+router.post('/on', async (req, res) => {
+  const tvIP = req.tvIP;
+
+  const urlSend = `https://${tvIP}:${TV_PORT}`;
+  console.log(urlSend);
+
   const powerState = {
-    jsonrpc: "2.0",
-    method: "powerControl",
+    jsonrpc: '2.0',
+    method: 'powerControl',
     params: {
-      power: "powerOn",
+      power: 'powerOn',
+      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
     },
-    id: "1",
+    id: '1',
   };
 
   // power State wird an den TV geschickt
-  res.status(200).json({ message: "powerOn" });
+  const response = await axios.post(urlSend, powerState);
+
+  res.status(200).json(response.data);
 });
 
 // power off
-router.post("/off", (req, res) => {
+router.post('/off', async (req, res) => {
+  const tvIP = req.tvIP;
+
+  const urlSend = `https://${tvIP}:${TV_PORT}`;
+  console.log(urlSend);
+
   const powerState = {
-    jsonrpc: "2.0",
-    method: "powerControl",
+    jsonrpc: '2.0',
+    method: 'powerControl',
     params: {
-      power: "powerOff",
+      power: 'powerOff',
+      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
     },
-    id: "1",
+    id: '1',
   };
 
   // power State wird an den TV geschickt
-  res.status(200).json({ message: "powerOff" });
+  const response = await axios.post(urlSend, powerState);
+
+  res.status(200).json(response.data);
 });
 
 // Reboot
-router.post("/reboot", (req, res) => {
+router.post('/reboot', async (req, res) => {
+  const tvIP = req.tvIP;
+
+  const urlSend = `https://${tvIP}:${TV_PORT}`;
+  console.log(urlSend);
+
   const powerState = {
-    jsonrpc: "2.0",
-    method: "powerControl",
+    jsonrpc: '2.0',
+    method: 'powerControl',
     params: {
-      power: "Reboot",
+      power: 'Reboot',
+      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
     },
-    id: "1",
+    id: '1',
   };
 
   // power State wird an den TV geschickt
-  res.status(200).json({ message: "Reboot" });
+  const response = await axios.post(urlSend, powerState);
+
+  res.status(200).json(response.data);
 });
 
 module.exports = router;

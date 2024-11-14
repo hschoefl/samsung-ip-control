@@ -11,14 +11,18 @@ const TV_PORT = 1516;
 router.get('/', async (req, res) => {
   const tvIP = req.tvIP;
 
+  // check if there is a global AccessToken
+  if (!accessToken) {
+    throw new Error('There is no global access token defined');
+  }
+
   const urlSend = `https://${tvIP}:${TV_PORT}`;
-  console.log(urlSend);
 
   const powerState = {
     jsonrpc: '2.0',
     method: 'powerControl',
     params: {
-      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
+      AccessToken: accessToken,
     },
     id: '1',
   };
@@ -45,7 +49,7 @@ router.post('/on', async (req, res) => {
     method: 'powerControl',
     params: {
       power: 'powerOn',
-      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
+      AccessToken: accessToken,
     },
     id: '1',
   };
@@ -68,7 +72,7 @@ router.post('/off', async (req, res) => {
     method: 'powerControl',
     params: {
       power: 'powerOff',
-      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
+      AccessToken: accessToken,
     },
     id: '1',
   };
@@ -91,7 +95,7 @@ router.post('/reboot', async (req, res) => {
     method: 'powerControl',
     params: {
       power: 'Reboot',
-      AccessToken: 'pxmgxddXWoWvBVlvOaor4qRlajmooXKInYxkM8tlp9QK94rhg',
+      AccessToken: accessToken,
     },
     id: '1',
   };
